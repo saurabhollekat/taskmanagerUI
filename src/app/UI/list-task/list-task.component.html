@@ -1,0 +1,69 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-1">
+      <label for="task">Task:</label>
+    </div>
+    <div class="col-md-5">
+      <input type="text" class="form-control" id="task">
+    </div>
+    <div class="col-md-1">
+      <label for="parentTask">Parent Task:</label>
+    </div>
+    <div class="col-md-5">
+      <input type="text" class="form-control" id="parentTask">
+    </div>
+  </div>
+  <div class="row">
+      <div class="col-md-1">
+        <label for="priorityFrom">Priority From:</label>
+      </div>
+      <div class="col-md-2">
+        <input type="text" class="form-control" id="priorityFrom">
+      </div>
+      <div class="col-md-1">
+        <label for="priorityTo">Priority To:</label>
+      </div>
+      <div class="col-md-2">
+        <input type="text" class="form-control" id="priorityTo">
+      </div>
+      <div class="col-md-1">
+          <label for="startDate">Start Date:</label>
+      </div>
+      <div class="col-md-2">
+        <input type="text" class="form-control" id="startDate">
+      </div>
+      <div class="col-md-1">
+        <label for="endDate">End Date:</label>
+      </div>
+      <div class="col-md-2">
+        <input type="text" class="form-control" id="endDate">
+      </div>
+    </div>
+</div>
+<br/>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Task</th>
+      <th>Parent Task</th>
+      <th>Priority</th>
+      <th>Start</th>
+      <th>End</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let task of taskList;">
+      <td>{{task.Name}}</td>
+      <td>{{task.ParentName}}</td>
+      <td>{{task.Priority}}</td>
+      <td>{{task.SDate|date}}</td>
+      <td>{{task.EDate|date}}</td>
+      <td>
+        <span class="glyphicon glyphicon-edit mousepointer" title="Edit Task"></span>
+        &nbsp;
+        <span class="glyphicon glyphicon-save mousepointer" title="End Task"></span>
+      </td>
+    </tr>
+  </tbody>
+</table>
