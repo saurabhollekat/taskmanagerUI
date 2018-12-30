@@ -54,11 +54,11 @@
   </thead>
   <tbody>
     <tr *ngFor="let task of taskList;">
-      <td>{{task.Name}}</td>
-      <td>{{task.ParentName}}</td>
+      <td>{{task.TaskName}}</td>
+      <td>{{task.ParentTaskName}}</td>
       <td>{{task.Priority}}</td>
-      <td>{{task.SDate|date}}</td>
-      <td>{{task.EDate|date}}</td>
+      <td>{{task.StartDate|date}}</td>
+      <td>{{task.EndDate|date}}</td>
       <td>
         <span class="glyphicon glyphicon-edit mousepointer" title="Edit Task"></span>
         &nbsp;

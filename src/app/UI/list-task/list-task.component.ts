@@ -13,6 +13,7 @@ export class ListTaskComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.taskList = this._taskService.getAllTasks();
+    this.taskList = this._taskService.getAllStaticTasks();
+    // this._taskService.getAll().subscribe(t => this.taskList = t);
   }
 }

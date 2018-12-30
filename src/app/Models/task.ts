@@ -1,7 +1,9 @@
 export class Task {
-    Name: string;
-    ParentName: string;
+    TaskID: Number;
+    TaskName: string;
+    ParentTaskID: Number;
+    ParentTaskName: string;
     Priority: number;
-    SDate: Date;
-    EDate: Date;
+    StartDate: Date;
+    EndDate: Date;
 }
