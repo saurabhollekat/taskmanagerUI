@@ -1,9 +1,11 @@
 <div class="container">
-    <div class="row">
-        <h1>Task Manager</h1>
-        <a routerLink="/add">Add Task</a>&nbsp;
-        <a routerLink="/home">View Task</a>
-        <br/><br/><br/>
-        <router-outlet></router-outlet>
+    <div style="text-align:left">
+        <h2>
+          Task Manager
+        </h2>        
     </div>
+    <app-menu></app-menu>
+      <div style="margin-top: 20px;">
+        <router-outlet></router-outlet>
+      </div>    
 </div>

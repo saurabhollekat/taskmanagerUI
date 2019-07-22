@@ -1,91 +1,64 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 import { Task } from '../Models/task';
+import { SearchTask } from '../Models/searchTask';
+import { Response } from 'selenium-webdriver/http';
+import { environment } from '../../environments/environment';
+import { pipe } from '@angular/core/src/render3/pipe';
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type':  'application/json',
+    'Authorization': 'my-auth-token'
+  })
+};
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaskServiceService {
-  url: String = 'http://localhost:3000/';
-  TaskList: Task[];
-  constructor(private _httpClient: HttpClient) {
-    this.TaskList = [
-      {
-        TaskID: 1,
-        TaskName: 'Task1',
-        ParentTaskID: 0,
-        ParentTaskName: 'None',
-        Priority: 1,
-        StartDate: new Date(),
-        EndDate: new Date(2018, 1, 1)
-      },
-      {
-        TaskID: 2,
-        TaskName: 'Task2',
-        ParentTaskID: 0,
-        ParentTaskName: 'None',
-        Priority: 2,
-        StartDate: new Date(),
-        EndDate: new Date(2018, 2, 2)
-      },
-      {
-        TaskID: 3,
-        TaskName: 'Task3',
-        ParentTaskID: 1,
-        ParentTaskName: 'Task1',
-        Priority: 3,
-        StartDate: new Date(),
-        EndDate: new Date(2018, 3, 3)
-      },
-      {
-        TaskID: 4,
-        TaskName: 'Task4',
-        ParentTaskID: 0,
-        ParentTaskName: 'None',
-        Priority: 4,
-        StartDate: new Date(),
-        EndDate: new Date(2018, 4, 4)
-      },
-      {
-        TaskID: 5,
-        TaskName: 'Task5',
-        ParentTaskID: 2,
-        ParentTaskName: 'Task2',
-        Priority: 5,
-        StartDate: new Date(),
-        EndDate: new Date(2018, 5, 5)
-      }
-    ];
+  url: String = 'http://localhost:51703/api/';
+  constructor(private _http: HttpClient) { }
+
+  GetAllTaskBySearchCriteria(item: SearchTask): Observable<any> {
+    return this._http.post(this.url + 'Tasks/Search', item, httpOptions)
+    .pipe(map((res: Response) => res), catchError((err: Response) => throwError(err)));
   }
 
-  getAllStaticTasks() {
-    return this.TaskList;
+  GetAllTask(): Observable<any> {
+    return this._http.post(this.url + 'Tasks', '', httpOptions)
+    .pipe(map((res: Response) => res), catchError((err: Response) => throwError(err)));
   }
 
-  // Get all task details
-  getAll(): Observable<any> {
-    return this._httpClient.get(this.url + 'GetAll').pipe(map((res: Response) => res));
+  GetParentTask(): Observable<any> {
+    return this._http.get(this.url + 'Tasks/Parent')
+    .pipe(map((res: Response) => res), catchError((err: Response) => throwError(err)));
   }
 
-  // Get task details by id
-  get(id: Number): Observable<any> {
-    return this._httpClient.get(this.url + 'Get/' + id).pipe(map((res: Response) => res));
+  GetTaskById(id: number): Observable<any> {
+    return this._http.get(this.url + 'Tasks/' + id)
+    .pipe(map((res: Response) => res), catchError((err: Response) => throwError(err)));
   }
 
-  // Create new task
-  post(task: Task): Observable<any> {
-    return this._httpClient.post(this.url + 'Post', task).pipe(map((res: Response) => res));
+  AddTask (item: Task): Observable<any> {
+    return this._http.post(this.url + 'Tasks/Add', item, httpOptions)
+    .pipe(map((res: Response) => res), catchError((err: Response) => throwError(err)));
   }
 
-  // Update a task
-  put(task: Task): Observable<any> {
-    return this._httpClient.put(this.url + 'Put', task).pipe(map((res: Response) => res));
+  UpdateTask(item: Task): Observable<any> {
+    return this._http.post(this.url + 'Tasks/Update', item)
+    .pipe(map((res: Response) => res), catchError((err: Response) => throwError(err)));
   }
 
-  // delete a task
-  delete(id: Number): Observable<any> {
-    return this._httpClient.delete(this.url + 'Delete/' + id).pipe(map((res: Response) => res));
+  EndTask(id: number): Observable<any> {
+    return this._http.get(this.url + 'Tasks/End/' + id)
+    .pipe(map((res: Response) => res), catchError((err: Response) => throwError(err)));
+  }
+
+  DeleteTask(id: number): Observable<any> {
+    return this._http.get(this.url + 'Tasks/Delete/' + id)
+    .pipe(map((res: Response) => res), catchError((err: Response) => throwError(err)));
   }
 }
