@@ -19,7 +19,8 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class TaskServiceService {
-  url: String = 'http://localhost:51703/api/';
+  url: String = 'http://localhost/TaskManager.API/api/';
+  // url: String = 'http://localhost:51703/api/';
   constructor(private _http: HttpClient) { }
 
   GetAllTaskBySearchCriteria(item: SearchTask): Observable<any> {
